@@ -40,6 +40,7 @@ const Home = async () => {
         <PromoBanner
           src="/promo-banner-01.png"
           alt="Promoção de ate 30% em pizzas!"
+          className="h-auto w-full md:h-[30rem]"
         />
       </div>
 
@@ -61,6 +62,7 @@ const Home = async () => {
         <PromoBanner
           src="/promo-banner-02.png"
           alt="A partir de R$17,90 em lanches"
+          className="h-auto w-full md:h-[30rem]"
         />
       </div>
 

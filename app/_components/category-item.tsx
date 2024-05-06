@@ -15,7 +15,10 @@ const CategoryItem = ({ category }: CategoryItem) => {
           height={30}
           width={30}
         />
-        <span className="block text-sm font-semibold"> {category.name} </span>
+        <span className="block text-sm font-semibold md:text-xs">
+          {" "}
+          {category.name}{" "}
+        </span>
       </div>
     </>
   );
