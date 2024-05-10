@@ -4,14 +4,22 @@ import {
   calculeteProductTotalPrice,
   formatCurrency,
 } from "@/app/_components/_helpers/price";
+import Cart from "@/app/_components/cart";
 import DeliveryInfo from "@/app/_components/delivery-info";
 import DiscountBadge from "@/app/_components/discount-badge";
 import ProductList from "@/app/_components/product-list";
 import { Button } from "@/app/_components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/app/_components/ui/sheet";
+import { CartContext } from "@/app/_context/cart";
 import { Prisma } from "@prisma/client";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -30,7 +38,17 @@ const ProductsDetails = ({
   product,
   complementaryProducts,
 }: ProductDetailsProps) => {
+  const { addProductsToCart, products } = useContext(CartContext);
+
   const [quantity, setQuantity] = useState(1);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  console.log(products);
+
+  const handleAddToCartClick = () => {
+    addProductsToCart(product, quantity);
+    setIsCartOpen(true);
+  };
 
   const handleCreaseQuantityClick = () => {
     setQuantity((currentState) => currentState + 1);
@@ -112,9 +130,24 @@ const ProductsDetails = ({
         </div>
         <ProductList products={complementaryProducts} />
         <div className="mt-6 px-5">
-          <Button className="w-full font-semibold"> Adicionar à sacola </Button>
+          <Button
+            className="w-full font-semibold"
+            onClick={handleAddToCartClick}
+          >
+            {" "}
+            Adicionar à sacola{" "}
+          </Button>
         </div>
       </div>
+
+      <Sheet open={isCartOpen} onOpenChange={setIsCartOpen}>
+        <SheetContent className="w-[85vw]">
+          <SheetHeader>
+            <SheetTitle className=" text-left">Sacola</SheetTitle>
+          </SheetHeader>
+          <Cart />
+        </SheetContent>
+      </Sheet>
     </>
   );
 };
