@@ -13,7 +13,7 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
   const {
     decreaseProductQuantity,
     increaseProductQuantity,
-    removeProductFormCart,
+    removeProductFromCart,
   } = useContext(CartContext);
 
   const handleDecreaseQuantityClick = () => {
@@ -25,7 +25,7 @@ const CartItem = ({ cartProduct }: CartItemProps) => {
   };
 
   const handleRemoveClick = () => {
-    removeProductFormCart(cartProduct.id);
+    removeProductFromCart(cartProduct.id);
   };
 
   return (
