@@ -50,6 +50,14 @@ const Cart = () => {
         user: {
           connect: { id: data.user.id },
         },
+        products: {
+          createMany: {
+            data: products.map((product) => ({
+              productId: product.id,
+              quantity: product.quantity,
+            })),
+          },
+        },
       });
     } catch (err) {
       console.log(err);
@@ -126,19 +134,20 @@ const Cart = () => {
           <AlertDialogHeader>
             <AlertDialogTitle>Deseja finalizar seu pedido?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              Ao finalizar o pedido, você concorda com os termos e condições da
+              nossa plataforma
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={isSubmitLoading}>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleFinishOrderClick}
+              disabled={isSubmitLoading}
+            >
               {isSubmitLoading && (
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               )}
-              Cancelar
-            </AlertDialogCancel>
-            <AlertDialogAction onClick={handleFinishOrderClick}>
-              Continuar
+              Finalizar
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
