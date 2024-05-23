@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
 import { CartContext } from "../_context/cart";
 import CartItem from "./cart-item";
@@ -20,9 +21,17 @@ import {
   AlertDialogTitle,
 } from "./ui/alert-dialog";
 import { AlertDialogCancel } from "@radix-ui/react-alert-dialog";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const Cart = () => {
+interface CartProps {
+  setIsOpen: (isOpen: boolean) => void;
+}
+
+const Cart = ({ setIsOpen }: CartProps) => {
   const { data } = useSession();
+
+  const router = useRouter();
 
   const [isSubmitLoading, setIsSubmitLoading] = useState(false);
   const [isConfirmeDialogOpen, setIsConfirmeDialogOpen] = useState(false);
@@ -59,11 +68,21 @@ const Cart = () => {
           },
         },
       });
+
+      clearCart();
+      setIsOpen(false);
+
+      toast("Pedido finalizado com sucesso!", {
+        description: "Você pode acompanhá-lo na tela de seus pedidos.",
+        action: {
+          label: "Meus Pedidos",
+          onClick: () => router.push("my-orders"),
+        },
+      });
     } catch (err) {
       console.log(err);
     } finally {
       setIsSubmitLoading(false);
-      clearCart();
     }
   };
 
