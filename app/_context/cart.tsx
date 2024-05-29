@@ -148,7 +148,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       );
     }
 
-    // SE NÃO, ADICIONÁ-LO COM A QUANTIDADE RECEBIDA
     setProducts((prev) => [...prev, product]);
   };
 

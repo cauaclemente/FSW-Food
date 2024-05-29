@@ -7,7 +7,16 @@ import { searchForRestaurants } from "./search";
 import Header from "../_components/header";
 import RestaurantItem from "../_components/restaurant-item";
 
-const Restaurants = () => {
+interface UserFavoriteRestaurant {
+  userId: string;
+  restaurantId: string;
+  createdAt: Date;
+}
+interface RestaurantProps {
+  userFavoriteRestaurants: UserFavoriteRestaurant[];
+}
+
+const Restaurants = ({ userFavoriteRestaurants }: RestaurantProps) => {
   const searchParams = useSearchParams();
   const [restaurant, setRestaurant] = useState<Restaurant[]>([]);
 
@@ -42,6 +51,7 @@ const Restaurants = () => {
               key={restaurants.id}
               restaurant={restaurants}
               className="min-w-full max-w-full"
+              userFavoriteRestaurants={userFavoriteRestaurants}
             />
           ))}
         </div>

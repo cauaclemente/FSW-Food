@@ -93,7 +93,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
         <div className="px-5">
           <DeliveryInfo restaurant={restaurant} />
         </div>
-        <div className="mt-3 flex gap-4 overflow-x-scroll px-5 [&::-webkit-scrollbar]:hidden">
+        <div className="mt-3 flex gap-4 overflow-x-scroll px-5 md:mb-6 md:mt-6 md:gap-10 [&::-webkit-scrollbar]:hidden">
           {restaurant.categories.map((category) => (
             <div
               key={category.id}
@@ -110,7 +110,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
           <ProductList products={restaurant.products} />
         </div>
         {restaurant.categories.map((category) => (
-          <div className=" mt-6 space-y-4" key={category.id}>
+          <div className=" mb-12 mt-6 space-y-4" key={category.id}>
             <h2 className=" px-5 font-semibold"> {category.name}</h2>
             <ProductList products={category.products} />
           </div>
